@@ -1,0 +1,29 @@
+name: build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - run: pip install -r requirements.txt
+
+      - name: Build the site
+        run: python build.py
+
+      - name: Verify output
+        run: python verify.py
+
+      - name: Reproducible build
+        run: |
+          mv dist dist-first
+          python build.py
+          diff -r dist-first dist

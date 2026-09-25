@@ -1,0 +1,24 @@
+# generated output — reproducible via `python build.py`
+dist/
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+
+# tooling
+.vercel/
+node_modules/
+*.log
+
+# editors
+.vscode/
+.idea/
+*.swp
+
+# os / sync cruft
+.DS_Store
+Thumbs.db
+desktop.ini
