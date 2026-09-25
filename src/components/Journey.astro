@@ -1,0 +1,28 @@
+---
+import data from '../data/site.json';
+const steps = data.journey as [string, string, string, string][];
+---
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">From first conversation to final detail</div>
+        <h2>A thoughtful process.<br />A clearer path forward.</h2>
+      </div>
+      <p>A construction project carries important decisions. Our approach starts by giving
+        those decisions structure.</p>
+    </div>
+    <div class="journey">
+      {steps.map(([kicker, heading, body, meta], i) => (
+        <article>
+          <div class="journey-index">0{i + 1}<span>{kicker}</span></div>
+          <div>
+            <h3>{heading}</h3>
+            <p>{body}</p>
+            <small>{meta}</small>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

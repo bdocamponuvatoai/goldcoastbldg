@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Photo from '../components/Photo.astro';
+import CompanyStatement from '../components/CompanyStatement.astro';
+import Principles from '../components/Principles.astro';
+import Partnership from '../components/Partnership.astro';
+import Journey from '../components/Journey.astro';
+import Local from '../components/Local.astro';
+import data from '../data/site.json';
+
+const desc = 'Gold Coast Build is a Chicago-based residential and commercial construction company on North Michigan Avenue, building across the city, the North Shore and the western suburbs.';
+const schema = [{
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: data.site.url + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Our company', item: data.site.url + '/about/' },
+  ],
+}];
+---
+<Base title="Our Company" description={desc} schema={schema}>
+  <PageHead
+    kicker="Gold Coast Build / Chicago"
+    title="Built on care.<br>Defined by the details."
+    desc="Gold Coast Build is a Chicago-based residential and commercial construction company, bringing new homes, renovated residences, and business spaces to life across the city and surrounding suburbs."
+  />
+  <section class="section">
+    <div class="wrap split">
+      <Photo src={data.projects[1].images[2]} alt="Interior of the Highland Park residence" />
+      <div>
+        <div class="eyebrow">From the city to the suburbs</div>
+        <h2>Local perspective.<br />Personal commitment.</h2>
+        <p>Gold Coast Build brings together the ambition of a new construction project and the
+          possibilities within an existing property. Our residential work includes custom
+          homes, condominium renovations, and remodeling; our commercial services support new
+          spaces, build-outs, and property improvements.</p>
+        <p>Based on North Michigan Avenue in Chicago, GCB serves clients across the city and
+          surrounding suburbs. Our portfolio moves from the vertical setting of the John
+          Hancock Center to the residential neighborhoods of Highland Park, Glenview,
+          Norridge, and Downers Grove. Each project reflects a different way of living—and a
+          distinct opportunity to build well.</p>
+        <a class="text-link" href="/projects/">See our work <span>↗</span></a>
+      </div>
+    </div>
+  </section>
+  <CompanyStatement />
+  <Principles />
+  <Partnership />
+  <Journey />
+  <Local />
+</Base>

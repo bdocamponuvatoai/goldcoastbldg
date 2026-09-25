@@ -1,0 +1,19 @@
+---
+import Photo from './Photo.astro';
+interface Props { project: any; index: number }
+const { project, index } = Astro.props;
+const cover = project.images[project.selections[0][0]];
+---
+<a class="project-card" data-category={project.category} href={project.path}>
+  <div class="image">
+    <Photo src={cover} alt={`${project.short} — ${project.location}`} slot="card" />
+    <span class="view" aria-hidden="true">↗</span>
+  </div>
+  <div class="meta">
+    <div>
+      <div class="eyebrow">{project.location}</div>
+      <h3>{project.short}</h3>
+    </div>
+    <p>{index === 0 ? 'Renovation' : 'Residential'}</p>
+  </div>
+</a>

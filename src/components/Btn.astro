@@ -1,0 +1,7 @@
+---
+interface Props { text: string; href?: string; outline?: boolean }
+const { text, href = '/contact/', outline = false } = Astro.props;
+---
+<a class:list={['btn', { outline }]} href={href}>
+  {text}<span aria-hidden="true" class="arrow">↗</span>
+</a>

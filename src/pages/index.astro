@@ -1,0 +1,107 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import Btn from '../components/Btn.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import Principles from '../components/Principles.astro';
+import EditorialFeature from '../components/EditorialFeature.astro';
+import Journey from '../components/Journey.astro';
+import Partnership from '../components/Partnership.astro';
+import Local from '../components/Local.astro';
+import data from '../data/site.json';
+
+const projects = data.projects;
+const desc = 'Gold Coast Build builds custom homes, renovations and commercial spaces across Chicago, the North Shore and the western suburbs. See the portfolio and start a conversation.';
+---
+<Base title="Custom Homes & Commercial Construction in Chicago" description={desc}>
+  <section class="hero">
+    <Photo
+      src={projects[3].images[1]}
+      alt="Modern Glenview residence with distinctive gabled architecture"
+      slot="hero"
+      priority
+    />
+    <div class="wrap content">
+      <div class="eyebrow gold">Chicago &amp; the surrounding suburbs</div>
+      <h1>Exceptional spaces.<br /><em>Built with purpose.</em></h1>
+      <p>Gold Coast Build creates custom homes, refined renovations, and commercial spaces
+        across Chicagoland. Bring us your vision. Let’s build a place you are proud to call
+        yours.</p>
+      <div class="actions">
+        <Btn text="Explore our work" href="/projects/" />
+        <Btn text="Start your project" href="/contact/" outline />
+      </div>
+    </div>
+    <div class="hero-bottom">
+      <div>RESIDENTIAL &amp; COMMERCIAL<br /><span>From first ideas to final details.</span></div>
+      <div><strong>Featured / Glenview Residence</strong><br /><span>Glenview, Illinois</span></div>
+    </div>
+  </section>
+
+  <section class="wrap intro">
+    <div class="eyebrow">The Gold Coast Build standard</div>
+    <div>
+      <h2>Your vision deserves<br />Gold Coast Build.</h2>
+      <div class="body">
+        <p>From a residence above the Chicago skyline to a custom home on the North Shore,
+          Gold Coast Build brings a considered approach to the places that matter. We handle
+          new construction and remodeling for homeowners and businesses, connecting the larger
+          vision with the details that give a space its character.</p>
+        <p style="margin-top:22px">Our work brings together architectural presence, practical
+          living, and carefully finished interiors. Explore what GCB has built—and imagine
+          what we can create with you.</p>
+        <a class="text-link" href="/about/">Meet Gold Coast Build <span>↗</span></a>
+      </div>
+    </div>
+  </section>
+
+  <Principles />
+
+  <section class="section projects">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">Selected work / Chicagoland</div>
+          <h2>Built to be lived in.<br />Made to stand apart.</h2>
+        </div>
+        <a class="text-link" href="/projects/">View all projects <span>↗</span></a>
+      </div>
+      <div class="project-grid">
+        <ProjectCard project={projects[2]} index={2} />
+        <ProjectCard project={projects[1]} index={1} />
+        <ProjectCard project={projects[0]} index={0} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section services">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="eyebrow gold">Our expertise</div>
+          <h2>Your ambition.<br />Our attention to detail.</h2>
+        </div>
+        <p>One construction partner for the places you live, work, and grow.</p>
+      </div>
+      <a class="service-row" href="/residential-construction/">
+        <span class="number">01</span>
+        <h3>Residential construction</h3>
+        <p>Custom homes, condominium renovations, and residential remodeling shaped around the
+          way you want to live.</p>
+        <span class="arrow">↗</span>
+      </a>
+      <a class="service-row" href="/commercial-construction/">
+        <span class="number">02</span>
+        <h3>Commercial construction</h3>
+        <p>New commercial spaces, build-outs, and renovations that put the needs of your
+          business at the center.</p>
+        <span class="arrow">↗</span>
+      </a>
+    </div>
+  </section>
+
+  <EditorialFeature />
+  <Journey />
+  <Partnership />
+  <Local />
+</Base>

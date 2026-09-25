@@ -21,9 +21,9 @@ What remains:
 |---|---|
 | Content injection | All page copy is authored in the repository, never user-supplied |
 | JSON-LD | `<`, `>` and `&` are escaped to `\u00XX`, so content cannot close its own `<script>` |
-| External links | Every `target="_blank"` carries `rel="noopener"`; enforced by `verify.py` |
+| External links | Every `target="_blank"` carries `rel="noopener"`; enforced by `verify.mjs` |
 | Third-party origins | Google Fonts only (`fonts.googleapis.com`, `fonts.gstatic.com`) |
-| Dependencies | Pillow, build-time only, pinned `>=12.3.0` |
+| Dependencies | Astro and sharp, build-time only, pinned by `package-lock.json` |
 
 ## Response headers
 
@@ -37,8 +37,9 @@ Set in `vercel.json` and applied to every response:
 - `Referrer-Policy: strict-origin-when-cross-origin`
 - `Permissions-Policy: geolocation=(), microphone=(), camera=()`
 
-`dist/_headers` carries the same set in Netlify / Cloudflare Pages format.
-It is **ignored by Vercel**, which reads `vercel.json` instead.
+`public/_headers` carries the same set in Netlify / Cloudflare Pages format
+and is copied into the build. It is **ignored by Vercel**, which reads
+`vercel.json` instead.
 
 ### Known weakening
 
@@ -49,24 +50,27 @@ by generating a class per project instead — would allow a strict
 
 ## Dependencies
 
-Pillow is the only dependency and runs at build time against photographs
-committed to this repository. It never processes untrusted input, so
-image-parsing CVEs have no reachable path in production. It is still kept
-current:
+All dependencies are build-time only; none reach the browser. The site ships
+no framework JavaScript, only `src/scripts/app.js`.
+
+`sharp` processes the photographs committed to this repository and never
+untrusted input, so image-parsing CVEs have no reachable path in production.
+
+Keep the tree current and pinned:
 
 ```bash
-pip install -U -r requirements.txt
+npm audit
+npm ci          # installs exactly what package-lock.json specifies
 ```
 
-`requirements.txt` pins `Pillow>=12.3.0`. Versions below that are affected
-by CVE-2026-59203.
+Use `npm ci` rather than `npm install` in CI so the lockfile is authoritative.
 
 ## Secrets
 
 The repository contains no credentials. Deployment tokens belong in CI
 secrets (`secrets.VERCEL_TOKEN`), never in the repository.
 
-Nothing in `dist/` is committed; it is generated output and git-ignored.
+Nothing in `dist/` or `node_modules/` is committed; both are git-ignored.
 
 ## Things that look like secrets but are not
 
