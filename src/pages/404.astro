@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Btn from '../components/Btn.astro';
+---
+<Base title="Page Not Found" cta={false}>
+  <PageHead
+    kicker="404"
+    title="Let’s get you<br>back on track."
+    desc="The page you’re looking for is not here."
+  />
+  <section class="section wrap">
+    <Btn text="Return home" href="/" />
+  </section>
+</Base>

@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Faq from '../components/Faq.astro';
+import data from '../data/site.json';
+
+const desc = 'Talk to Gold Coast Build about a residential or commercial construction project in Chicago. Call (312) 600-7111 or email Office@GoldCoastBld.com.';
+const faqSchema = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: (data.faq as [string, string][]).map(([q, a]) => ({
+    '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+const crumbs = {
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: data.site.url + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Contact', item: data.site.url + '/contact/' },
+  ],
+};
+const mailto = `mailto:${data.site.email}?subject=New%20project%20inquiry&body=Hello%20Gold%20Coast%20Build%2C%0A%0AI%20would%20like%20to%20discuss%20a%20project.%0A%0AName%3A%0APhone%3A%0AProject%20location%3A%0AType%20of%20work%3A%0AIdeal%20timing%3A%0AProject%20details%3A%0A`;
+---
+<Base title="Contact" description={desc} schema={[faqSchema, crumbs]} cta={false}>
+  <PageHead
+    kicker="Start a conversation"
+    title="A great build starts<br>with your vision."
+    desc="Tell us what you have in mind. Let’s discuss your property, your priorities, and the next steps."
+  />
+  <section class="section">
+    <div class="wrap contact-layout">
+      <div class="contact-details">
+        <div class="eyebrow">Gold Coast Build LLC</div>
+        <h2>Let’s talk.</h2>
+        <a href={data.site.phoneHref}>{data.site.phone}</a>
+        <a href={`mailto:${data.site.email}`}>{data.site.email}</a>
+        <p>{data.site.street}<br />{data.site.city}, {data.site.region} {data.site.postal}</p>
+        <a class="text-link"
+           href="https://www.google.com/maps/search/?api=1&query=875+N+Michigan+Ave+Chicago+IL+60611"
+           target="_blank" rel="noopener">View office location ↗</a>
+      </div>
+      <div class="contact-panel">
+        <div class="eyebrow">Your project / Our next conversation</div>
+        <h2>Schedule a free consultation.</h2>
+        <p>Share the project location, the type of work, and where you are in the planning
+          process. Plans or inspiration photos are welcome.</p>
+        <div class="contact-options">
+          <a class="btn" href={mailto}>Email your project details <span>↗</span></a>
+          <a class="text-link" href={data.site.phoneHref}>Prefer a conversation? Call us <span>↗</span></a>
+        </div>
+        <p class="contact-note">The email link opens your email app with a project outline
+          ready to complete and send.</p>
+      </div>
+    </div>
+  </section>
+  <Faq />
+</Base>

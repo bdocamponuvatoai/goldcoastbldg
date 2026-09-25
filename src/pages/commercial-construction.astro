@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Photo from '../components/Photo.astro';
+import Btn from '../components/Btn.astro';
+import ServiceDetail from '../components/ServiceDetail.astro';
+import ServicePitch from '../components/ServicePitch.astro';
+import Journey from '../components/Journey.astro';
+import Faq from '../components/Faq.astro';
+import data from '../data/site.json';
+
+const desc = 'Commercial construction in Chicago: new build, office and retail build-outs, and remodeling of existing commercial property, planned around how your business uses the space.';
+const faqSchema = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: (data.faq as [string, string][]).map(([q, a]) => ({
+    '@type': 'Question', name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+const crumbs = {
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: data.site.url + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Commercial construction', item: data.site.url + '/commercial-construction/' },
+  ],
+};
+---
+<Base title='Commercial construction' description={desc} schema={[faqSchema, crumbs]}>
+  <PageHead kicker='Commercial construction' title='Spaces that work<br>for your business.' desc='New construction, build-outs, and remodeling for offices, retail, and other commercial properties.' />
+  <section class="section">
+    <div class="wrap split">
+      <Photo src={data.commercialImages[1]} alt={`Commercial construction from Gold Coast Build’s current portfolio`} />
+      <div>
+        <div class="eyebrow">Built around your priorities</div>
+        <h2>A foundation for<br />what comes next.</h2>
+        <p>Your space should support your operations, your team, and the people you serve. Gold Coast Build works with you to translate business requirements into a practical construction scope.</p>
+        <ul class="list">
+            <li>New commercial construction</li>
+            <li>Office and retail build-outs</li>
+            <li>Commercial remodeling</li>
+            <li>Updates to existing spaces</li>
+        </ul>
+        <Btn text="Discuss your project" />
+      </div>
+    </div>
+  </section>
+  <ServiceDetail commercial={true} />
+  <ServicePitch commercial={true} />
+  <Journey />
+  <Faq />
+</Base>

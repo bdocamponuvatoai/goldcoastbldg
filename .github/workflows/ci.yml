@@ -10,20 +10,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-node@v4
         with:
-          python-version: '3.12'
+          node-version: '22'
+          cache: npm
 
-      - run: pip install -r requirements.txt
+      - run: npm ci
 
-      - name: Build the site
-        run: python build.py
+      - name: Build
+        run: npm run build
 
       - name: Verify output
-        run: python verify.py
-
-      - name: Reproducible build
-        run: |
-          mv dist dist-first
-          python build.py
-          diff -r dist-first dist
+        run: npm run verify

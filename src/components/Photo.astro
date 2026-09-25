@@ -1,0 +1,65 @@
+---
+/**
+ * One photograph, with a srcset built from the real file.
+ *
+ * Replaces the Pillow pipeline in photography.py: Astro's <Image> reads the
+ * intrinsic dimensions, writes width/height so the layout does not shift,
+ * and emits only the widths that are actually smaller than the source, so
+ * nothing is ever upscaled.
+ */
+import { Image } from 'astro:assets';
+
+// Lazy, not eager: an eager glob imports all 49 source photographs and Vite
+// then emits every untouched original into the build, including the ~20 that
+// are only in the curation pool. Awaiting one loader pulls in just that file.
+const files = import.meta.glob<{ default: ImageMetadata }>('../assets/*.{jpg,jpeg,png}');
+
+export type Slot = 'hero' | 'half' | 'lead' | 'card';
+
+// How wide the image is actually drawn, per layout slot. These mirror the
+// breakpoints in src/styles/style.css.
+const SIZES: Record<Slot, string> = {
+  hero: '100vw',
+  half: '(min-width:761px) 50vw, 100vw',
+  lead: '(min-width:761px) 680px, 100vw',
+  card: '(min-width:761px) 600px, 100vw',
+};
+
+interface Props {
+  src: string;            // '/assets/project-3-1.jpg' or 'project-3-1.jpg'
+  alt: string;
+  slot?: Slot;
+  priority?: boolean;     // the hero: eager + high fetch priority
+  class?: string;
+}
+
+const { src, alt, slot = 'half', priority = false, class: className } = Astro.props;
+
+const name = src.split('/').pop();
+const loader = files[`../assets/${name}`];
+if (!loader) {
+  throw new Error(
+    `Photo: no such image "${name}" in src/assets. ` +
+      `Available: ${Object.keys(files).length} files.`,
+  );
+}
+const image = (await loader()).default;
+
+// Never upscale, and never exceed the largest width any layout slot uses --
+// a 2500px variant is dead weight when nothing renders wider than 1800.
+const MAX = 1800;
+const widths = [480, 768, 1200, MAX].filter((w) => w <= Math.min(image.width, MAX));
+if (widths.length === 0) widths.push(image.width);
+---
+
+<Image
+  src={image}
+  alt={alt}
+  widths={widths}
+  sizes={SIZES[slot]}
+  quality={72}
+  loading={priority ? 'eager' : 'lazy'}
+  decoding="async"
+  class={className}
+  {...(priority ? { fetchpriority: 'high' as const } : {})}
+/>

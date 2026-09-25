@@ -1,0 +1,415 @@
+{
+  "site": {
+    "url": "https://goldcoastbld.com",
+    "name": "Gold Coast Build",
+    "phone": "(312) 600-7111",
+    "phoneHref": "tel:+13126007111",
+    "email": "Office@GoldCoastBld.com",
+    "street": "875 N Michigan Ave, Suite 3100",
+    "city": "Chicago",
+    "region": "IL",
+    "postal": "60611"
+  },
+  "projects": [
+    {
+      "slug": "modern-urban-living-in-the-heart-of-chicago",
+      "path": "/projects/modern-urban-living-in-the-heart-of-chicago/",
+      "location": "Streeterville, Chicago",
+      "short": "John Hancock Residence",
+      "desc": "A complete renovation of a 929-square-foot residence in Chicago’s John Hancock Center. An open plan, custom cabinetry, and updated finishes create a bright, composed home above the city.",
+      "category": "renovation",
+      "images": [
+        "/assets/project-0-0.jpg",
+        "/assets/project-0-1.jpg",
+        "/assets/project-0-2.jpg",
+        "/assets/project-0-3.jpg",
+        "/assets/project-0-4.jpg",
+        "/assets/project-0-5.jpg",
+        "/assets/project-0-6.jpg",
+        "/assets/project-0-7.jpg",
+        "/assets/project-0-8.jpg",
+        "/assets/project-0-9.jpg",
+        "/assets/project-0-10.jpg",
+        "/assets/project-0-11.jpg",
+        "/assets/project-0-12.jpg",
+        "/assets/project-0-13.jpg"
+      ],
+      "selections": [
+        [
+          8,
+          "Living room & city views"
+        ],
+        [
+          10,
+          "Kitchen cabinetry & finishes"
+        ],
+        [
+          11,
+          "Bathroom"
+        ],
+        [
+          9,
+          "Lake Michigan outlook"
+        ]
+      ],
+      "notes": [
+        [
+          "An open, light-filled plan",
+          "Large windows and an open layout draw the city and lake into the living space, making the most of a 929-square-foot footprint."
+        ],
+        [
+          "A more personal interior",
+          "Custom cabinetry, stainless steel appliances, and updated bathroom finishes bring a clean, contemporary character to the residence."
+        ]
+      ]
+    },
+    {
+      "slug": "elegant-new-construction-highland-park-il",
+      "path": "/projects/elegant-new-construction-highland-park-il/",
+      "location": "Highland Park, Illinois",
+      "short": "Highland Park Residence",
+      "desc": "A 3,534-square-foot new home across three levels. Vaulted ceilings, an open kitchen, and carefully planned living spaces bring a sense of light and ease to this Highland Park residence.",
+      "category": "new-build",
+      "images": [
+        "/assets/project-1-0.jpg",
+        "/assets/project-1-1.jpg",
+        "/assets/project-1-2.jpg",
+        "/assets/project-1-3.jpg",
+        "/assets/project-1-4.jpg"
+      ],
+      "selections": [
+        [
+          1,
+          "Exterior architecture"
+        ],
+        [
+          0,
+          "Kitchen"
+        ],
+        [
+          2,
+          "Cabinetry & surface details"
+        ],
+        [
+          4,
+          "Kitchen & living connection"
+        ]
+      ],
+      "notes": [
+        [
+          "Space across three levels",
+          "The 3,534-square-foot home combines open living areas with three bedrooms and 3.5 bathrooms, offering room for both gathering and retreat."
+        ],
+        [
+          "Details that support daily life",
+          "White maple cabinetry and quartz countertops anchor the kitchen. A second-floor laundry, mudroom storage, and heated garage add everyday practicality."
+        ]
+      ]
+    },
+    {
+      "slug": "luxurious-new-home-construction-in-glenview-il",
+      "path": "/projects/luxurious-new-home-construction-in-glenview-il/",
+      "location": "Glenview, Illinois",
+      "short": "Glenview Custom Home",
+      "desc": "A 5,248-square-foot custom residence with five bedrooms and generous spaces for gathering. Custom cabinetry, quartzite surfaces, and a full-height stone fireplace give the home its distinctive character.",
+      "category": "new-build",
+      "images": [
+        "/assets/project-2-0.jpg",
+        "/assets/project-2-1.jpg",
+        "/assets/project-2-2.jpg",
+        "/assets/project-2-3.jpg",
+        "/assets/project-2-4.jpg"
+      ],
+      "selections": [
+        [
+          0,
+          "Exterior architecture"
+        ],
+        [
+          2,
+          "Kitchen & gathering space"
+        ],
+        [
+          1,
+          "Entry hall"
+        ],
+        [
+          4,
+          "Cabinetry detail"
+        ]
+      ],
+      "notes": [
+        [
+          "Room to gather",
+          "The kitchen connects to a family room with an 11-foot ceiling and a full-height stone fireplace. A butler’s pantry links the formal dining and living areas."
+        ],
+        [
+          "A quieter side of the home",
+          "A primary suite with a marble bath, walk-in steam shower, and dual closets balances the generous entertaining spaces and finished lower level."
+        ]
+      ]
+    },
+    {
+      "slug": "a-showcase-of-modern-craftsmanship-glenview-il",
+      "path": "/projects/a-showcase-of-modern-craftsmanship-glenview-il/",
+      "location": "Glenview, Illinois",
+      "short": "Glenview Residence",
+      "desc": "A Glenview residence with distinctive gabled architecture, contrasting exterior materials, and bright, connected interiors. The kitchen and gathering spaces bring a contemporary sense of openness to the home.",
+      "category": "new-build",
+      "images": [
+        "/assets/project-3-0.jpg",
+        "/assets/project-3-1.jpg",
+        "/assets/project-3-2.jpg",
+        "/assets/project-3-3.jpg",
+        "/assets/project-3-4.jpg"
+      ],
+      "selections": [
+        [
+          0,
+          "Exterior architecture"
+        ],
+        [
+          4,
+          "Open living spaces"
+        ],
+        [
+          3,
+          "Kitchen island"
+        ],
+        [
+          1,
+          "Entry approach"
+        ]
+      ],
+      "notes": [
+        [
+          "Architectural character",
+          "The gabled exterior, contrasting materials, and large windows give this Glenview home a distinct presence."
+        ],
+        [
+          "Connected interiors",
+          "The project photography reveals bright living spaces and a kitchen organized around an island, with cabinetry and finishes carried consistently through the room."
+        ]
+      ]
+    },
+    {
+      "slug": "spacious-modern-custom-built-home-in-norridge-il",
+      "path": "/projects/spacious-modern-custom-built-home-in-norridge-il/",
+      "location": "Norridge, Illinois",
+      "short": "Norridge Custom Home",
+      "desc": "A custom-built Norridge residence with a masonry exterior, a welcoming arched entrance, and generous interior gathering spaces. An open kitchen and carefully detailed staircase give the home its individual character.",
+      "category": "new-build",
+      "images": [
+        "/assets/project-4-0.jpg",
+        "/assets/project-4-1.jpg",
+        "/assets/project-4-2.jpg",
+        "/assets/project-4-3.jpg",
+        "/assets/project-4-4.jpg"
+      ],
+      "selections": [
+        [
+          1,
+          "Exterior architecture"
+        ],
+        [
+          0,
+          "Kitchen & living room"
+        ],
+        [
+          3,
+          "Staircase detailing"
+        ]
+      ],
+      "notes": [
+        [
+          "A sense of arrival",
+          "The masonry exterior and arched entry establish the character of the home before the interior unfolds."
+        ],
+        [
+          "Everyday gathering spaces",
+          "An open kitchen and living area, a central island, and a detailed staircase shape the interior shown in the project gallery."
+        ]
+      ]
+    },
+    {
+      "slug": "luxurious-custom-built-residence-norridge-il",
+      "path": "/projects/luxurious-custom-built-residence-norridge-il/",
+      "location": "Norridge, Illinois",
+      "short": "Ozark Avenue Residence",
+      "desc": "A Norridge residence defined by its covered entrance, layered rooflines, and combination of siding and masonry. The exterior balances a welcoming scale with a distinct architectural presence.",
+      "category": "new-build",
+      "images": [
+        "/assets/project-5-0.jpg",
+        "/assets/project-5-1.jpg",
+        "/assets/project-5-2.jpg",
+        "/assets/project-5-3.jpg",
+        "/assets/project-5-4.jpg"
+      ],
+      "selections": [
+        [
+          0,
+          "Front elevation"
+        ],
+        [
+          1,
+          "Covered entrance"
+        ],
+        [
+          3,
+          "Exterior perspective"
+        ],
+        [
+          4,
+          "Street view"
+        ]
+      ],
+      "notes": [
+        [
+          "An individual presence",
+          "The exterior combines a covered entrance, layered rooflines, and contrasting siding and masonry."
+        ],
+        [
+          "See the home in detail",
+          "Explore the photographs for a closer look at the exterior composition, materials, and entry details."
+        ]
+      ]
+    },
+    {
+      "slug": "luxury-townhome-living-in-downers-grove-il",
+      "path": "/projects/luxury-townhome-living-in-downers-grove-il/",
+      "location": "Downers Grove, Illinois",
+      "short": "Downers Grove Townhome",
+      "desc": "A Downers Grove townhome with a strong street presence and open living spaces. Large windows, continuous wood floors, and a kitchen centered on an island give the interior a bright, connected feel.",
+      "category": "new-build",
+      "images": [
+        "/assets/project-6-0.jpg",
+        "/assets/project-6-1.jpg",
+        "/assets/project-6-2.jpg",
+        "/assets/project-6-3.jpg",
+        "/assets/project-6-4.jpg"
+      ],
+      "selections": [
+        [
+          0,
+          "Townhome exterior"
+        ],
+        [
+          2,
+          "Kitchen & dining"
+        ],
+        [
+          3,
+          "Living room"
+        ],
+        [
+          1,
+          "Staircase"
+        ]
+      ],
+      "notes": [
+        [
+          "An urban approach to townhome living",
+          "A structured façade and generous windows create a distinctive street presence for this Downers Grove project."
+        ],
+        [
+          "A connected interior",
+          "The photographed kitchen, dining, and living areas share an open arrangement, with wood floors and a central island tying the spaces together."
+        ]
+      ]
+    }
+  ],
+  "faq": [
+    [
+      "What types of projects can we discuss?",
+      "Gold Coast Build handles residential and commercial construction, including new homes, renovations, condominium remodeling, commercial spaces, and build-outs. Share the property and scope you have in mind so we can discuss the right starting point."
+    ],
+    [
+      "Do I need complete plans before contacting you?",
+      "You can start a conversation at the idea stage or bring an existing set of drawings. Let us know what has already been decided and where you would like help moving the project forward."
+    ],
+    [
+      "What should I prepare for the first conversation?",
+      "Your project address, a short description of the work, any plans or photographs, your timing preferences, and an initial budget range are useful. If some of these are still open, simply tell us where you are in the process."
+    ],
+    [
+      "How are budget and timing discussed?",
+      "Both depend on the property, the extent of work, the level of finish, and the project’s specific constraints. The first step is to understand those factors so the discussion is grounded in your actual scope."
+    ],
+    [
+      "Which areas do you serve?",
+      "Gold Coast Build works across Chicago and the surrounding suburbs. Our project portfolio includes the North Shore and western suburbs. Contact us with your project location to discuss coverage."
+    ]
+  ],
+  "journey": [
+    [
+      "DISCOVER",
+      "Begin with your vision.",
+      "Tell us about the property, the opportunity, and what you want to achieve. We start with the way the space needs to function and the priorities behind the project.",
+      "Your goals · Property · Priorities"
+    ],
+    [
+      "DEFINE",
+      "Make the important decisions early.",
+      "Bring the scope, plans, material preferences, and budget expectations into the same conversation. Identify the questions that need to be resolved before work begins.",
+      "Scope · Selections · Budget"
+    ],
+    [
+      "BUILD",
+      "Bring the details together.",
+      "Move from individual decisions to coordinated construction. The plans, the sequence of work, and the finished details all serve the same vision.",
+      "Coordination · Craftsmanship · Progress"
+    ],
+    [
+      "COMPLETE",
+      "Focus on the final experience.",
+      "Review how the finished space comes together—from its overall function to the details you touch and see. A project is about the life or business that follows.",
+      "Final details · Review · Next chapter"
+    ]
+  ],
+  "capabilities": {
+    "residential": [
+      [
+        "Custom home construction",
+        "Bring a new home to life with a layout and level of finish that reflect your priorities. Consider how the rooms connect, how natural light moves through the home, and where everyday life happens.",
+        "New homes · Living spaces · Interior and exterior finishes"
+      ],
+      [
+        "Whole-home renovation",
+        "Look at an existing home as a complete picture. Reconsider the relationship between rooms, update finishes, and bring greater consistency to the spaces you use most.",
+        "Existing homes · Interior transformation · Cohesive finishes"
+      ],
+      [
+        "Condominium & apartment remodeling",
+        "Make an urban home feel more personal and work more intelligently. Start with the possibilities of the existing layout and the practical considerations of working within a larger building.",
+        "City residences · Space planning priorities · Building coordination"
+      ],
+      [
+        "Kitchens, baths & interior updates",
+        "Give the most frequently used spaces a more considered finish. Cabinetry, surfaces, fixtures, and material transitions can change both the character and everyday experience of a home.",
+        "Kitchens · Bathrooms · Interior details"
+      ]
+    ],
+    "commercial": [
+      [
+        "New commercial construction",
+        "Create a space around the needs of your business from the outset. Begin with the intended use, site, and project scope, then bring the construction requirements into focus.",
+        "New spaces · Business requirements · Construction planning"
+      ],
+      [
+        "Office & retail build-outs",
+        "Shape an interior around your team, customers, and daily operations. Consider the layout, finishes, and practical details that influence how the space performs.",
+        "Workplaces · Customer-facing spaces · Interior finishes"
+      ],
+      [
+        "Commercial remodeling",
+        "Rework an existing property to reflect the next stage of your business. Update its appearance, improve the use of space, or plan a more extensive transformation.",
+        "Existing properties · Reconfigured interiors · Targeted improvements"
+      ]
+    ]
+  },
+  "commercialImages": [
+    "/assets/project-7-0.jpg",
+    "/assets/project-7-1.jpg",
+    "/assets/project-7-2.jpg"
+  ]
+}

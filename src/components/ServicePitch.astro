@@ -1,0 +1,30 @@
+---
+interface Props { commercial: boolean }
+const { commercial } = Astro.props;
+const c = commercial
+  ? {
+      kicker: 'Build your next chapter with GCB',
+      h: 'A space that represents<br>your business at its best.',
+      p: 'Your commercial property is part of how people experience your company. Gold Coast Build helps turn the need for a new or improved space into a focused construction conversation—one shaped by your operations, the property, and the impression you want to make.',
+      q: 'Bring us your business goals, your site, and your plans. Together, we can discuss the work that will move your space forward.',
+    }
+  : {
+      kicker: 'Make it your home. Build it with GCB.',
+      h: 'A place you are proud<br>to put your name on.',
+      p: 'The value of a home is felt in the way it lives: a kitchen that draws everyone together, rooms that feel connected, and finishes that make daily routines more enjoyable. Gold Coast Build brings that perspective to custom homes and renovations across Chicagoland.',
+      q: 'Explore our completed residences, then tell us what you would like your own home to become. The next project starts with your vision.',
+    };
+---
+<section class="section service-pitch">
+  <div class="wrap local-grid">
+    <div>
+      <div class="eyebrow">{c.kicker}</div>
+      <h2 set:html={c.h} />
+    </div>
+    <div>
+      <p class="lead">{c.p}</p>
+      <p>{c.q}</p>
+      <a class="text-link" href="/contact/">Talk to Gold Coast Build <span>↗</span></a>
+    </div>
+  </div>
+</section>

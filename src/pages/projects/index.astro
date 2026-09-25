@@ -1,0 +1,34 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import data from '../../data/site.json';
+
+const desc = 'Seven completed Gold Coast Build projects across Chicagoland: custom homes in Glenview, Highland Park and Norridge, a John Hancock Center renovation and a Downers Grove townhome.';
+const schema = [{
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: data.site.url + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Projects', item: data.site.url + '/projects/' },
+  ],
+}];
+---
+<Base title="Our Projects" description={desc} schema={schema}>
+  <PageHead
+    kicker="Our portfolio"
+    title="The work speaks<br>for itself."
+    desc="Explore homes and renovations across Chicago, the North Shore, and the western suburbs."
+  />
+  <section class="section">
+    <div class="wrap">
+      <div class="filter-bar" aria-label="Filter projects">
+        <button type="button" class="active" data-filter="all" aria-pressed="true">All projects</button>
+        <button type="button" data-filter="new-build" aria-pressed="false">New construction</button>
+        <button type="button" data-filter="renovation" aria-pressed="false">Renovations</button>
+      </div>
+      <div class="project-grid">
+        {data.projects.map((p, i) => <ProjectCard project={p} index={i} />)}
+      </div>
+    </div>
+  </section>
+</Base>

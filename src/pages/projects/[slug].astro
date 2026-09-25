@@ -1,0 +1,106 @@
+---
+import Base from '../../layouts/Base.astro';
+import Photo from '../../components/Photo.astro';
+import { getImage } from 'astro:assets';
+import data from '../../data/site.json';
+
+export function getStaticPaths() {
+  return data.projects.map((p) => ({ params: { slug: p.slug }, props: { project: p } }));
+}
+
+const { project } = Astro.props;
+const selections = project.selections as [number, string][];
+const lead = project.images[selections[0][0]];
+const notes = project.notes as [string, string][];
+const n = selections.length;
+const pad = (x: number) => String(x).padStart(2, '0');
+
+// The lightbox links to a full-size render via data-full. getImage() emits
+// one at the source's own width, so nothing is upscaled and the untouched
+// original does not need to be copied into the build.
+const files = import.meta.glob<{ default: ImageMetadata }>('../../assets/*.{jpg,jpeg,png}');
+const meta = async (src: string) =>
+  (await files[`../../assets/${src.split('/').pop()}`]()).default;
+
+// 2000px is more than the lightbox can display (it caps at 90dvh), so there
+// is no reason to ship the full 2500px original.
+const full = await Promise.all(
+  selections.map(async ([idx]) => {
+    const m = await meta(project.images[idx]);
+    return (await getImage({
+      src: m, width: Math.min(m.width, 2000), format: 'webp', quality: 78,
+    })).src;
+  }),
+);
+
+// the original capped the figure at min(680, intrinsic width) so a narrow
+// photograph is never stretched; one lead image is only 640px wide
+const leadWidth = Math.min(680, (await meta(lead)).width);
+
+const schema = [{
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: data.site.url + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Projects', item: data.site.url + '/projects/' },
+    { '@type': 'ListItem', position: 3, name: project.short, item: data.site.url + project.path },
+  ],
+}];
+---
+<Base title={project.short} description={project.desc} schema={schema}>
+  <section class="project-opening">
+    <div class="wrap">
+      <a class="project-back" href="/projects/">← All projects</a>
+      <div class="project-opening-grid">
+        <div class="project-title">
+          <div class="eyebrow">{project.location}</div>
+          <h1>{project.short}</h1>
+          <p>{project.desc}</p>
+          <a class="text-link" href="#project-gallery">Explore the photographs <span>↓</span></a>
+        </div>
+        <figure style={`max-width:${leadWidth}px`}>
+          <Photo src={lead} alt={`${project.short} — ${selections[0][1]}`} slot="lead" priority />
+          <figcaption>{selections[0][1]}<span>01 / {pad(n)}</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="project-photography">
+    <div class="wrap">
+      <div class="project-notes">
+        {notes.map(([h, p]) => <article><h3>{h}</h3><p>{p}</p></article>)}
+      </div>
+      <div class="gallery-heading" id="project-gallery">
+        <div>
+          <div class="eyebrow">A closer look</div>
+          <h2>Inside the project.</h2>
+        </div>
+        <p>{pad(n)} photographs · Select an image to enlarge</p>
+      </div>
+      <div class="gallery curated-gallery">
+        {selections.map(([idx, label], j) => (
+          <figure class="gallery-item">
+            <button type="button" data-full={full[j]} data-caption={label} aria-label={`Enlarge ${label}`}>
+              <Photo src={project.images[idx]} alt={`${project.short} — ${label}`} slot="half" />
+              <span class="enlarge-label" aria-hidden="true">View photograph ↗</span>
+            </button>
+            <figcaption><span>{label}</span><span>{pad(j + 1)} / {pad(n)}</span></figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <dialog class="lightbox" aria-label="Project photographs">
+    <div class="viewer-toolbar">
+      <span class="viewer-caption"></span>
+      <button type="button" class="viewer-close" aria-label="Close photograph">Close ✕</button>
+    </div>
+    <div class="viewer-image"><img alt="" /></div>
+    <div class="viewer-controls">
+      <button type="button" class="viewer-prev" aria-label="Previous photograph">← Previous</button>
+      <span class="viewer-count" aria-live="polite"></span>
+      <button type="button" class="viewer-next" aria-label="Next photograph">Next →</button>
+    </div>
+  </dialog>
+</Base>

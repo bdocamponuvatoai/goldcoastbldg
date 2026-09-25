@@ -1,0 +1,185 @@
+---
+/** The page shell: head metadata, header, footer. Ports shell() from build.py. */
+import data from '../data/site.json';
+import Brand from '../components/Brand.astro';
+import Btn from '../components/Btn.astro';
+import Cta from '../components/Cta.astro';
+import '../styles/style.css';
+
+const SITE = data.site.url;
+const SOCIAL = '/assets/og-image.jpg';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** extra JSON-LD blocks (FAQPage, BreadcrumbList) */
+  schema?: unknown[];
+  /** the contact and 404 pages end without the CTA band */
+  cta?: boolean;
+}
+
+const {
+  title,
+  description = 'Gold Coast Build provides custom home construction, residential renovation, and commercial construction across Chicago and the surrounding suburbs.',
+  schema = [],
+  cta = true,
+} = Astro.props;
+
+const path = Astro.url.pathname;
+const canonical = new URL(path, SITE).href;
+
+const nav = [
+  ['Our company', '/about/'],
+  ['Projects', '/projects/'],
+  ['Residential', '/residential-construction/'],
+  ['Commercial', '/commercial-construction/'],
+];
+
+const org = {
+  '@context': 'https://schema.org',
+  '@type': 'GeneralContractor',
+  '@id': SITE + '/#organization',
+  name: data.site.name,
+  url: SITE + '/',
+  description,
+  telephone: '+1-312-600-7111',
+  email: data.site.email,
+  image: SITE + SOCIAL,
+  logo: SITE + '/assets/logo.png',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: data.site.street,
+    addressLocality: data.site.city,
+    addressRegion: data.site.region,
+    postalCode: data.site.postal,
+    addressCountry: 'US',
+  },
+  // coordinates for 875 N Michigan Ave — verify against the Google Business
+  // Profile before launch
+  geo: { '@type': 'GeoCoordinates', latitude: 41.8988, longitude: -87.6229 },
+  areaServed: ['Chicago', 'Highland Park', 'Glenview', 'Norridge', 'Downers Grove'].map(
+    (name) => ({ '@type': 'City', name }),
+  ),
+  knowsAbout: [
+    'Custom home construction', 'Residential renovation', 'Condominium remodeling',
+    'Commercial construction', 'Office build-outs',
+  ],
+};
+
+/**
+ * JSON.stringify does not escape '<', so a value containing '</script>' would
+ * close the block and everything after it would parse as markup. Escaping the
+ * three markup-significant characters keeps the payload inert and still valid
+ * JSON. (set:html is required to emit it unescaped as JSON.)
+ */
+const ld = (obj: unknown) =>
+  JSON.stringify(obj).replace(/&/g, '\\u0026').replace(/</g, '\\u003c').replace(/>/g, '\\u003e');
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{title} | Gold Coast Build</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#14191d" />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:site_name" content="Gold Coast Build" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content={`${title} | Gold Coast Build`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={SITE + SOCIAL} />
+    <meta
+      property="og:image:alt"
+      content="A Gold Coast Build custom residence in Glenview, Illinois"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | Gold Coast Build`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={SITE + SOCIAL} />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/assets/logo.png" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+    />
+
+    <script type="application/ld+json" set:html={ld(org)} />
+    {schema.map((s) => <script type="application/ld+json" set:html={ld(s)} />)}
+  </head>
+
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <header>
+      <div class="wrap nav">
+        <Brand />
+        <button type="button" class="menu" aria-controls="navigation" aria-expanded="false">
+          Menu
+        </button>
+        <nav id="navigation" aria-label="Main navigation">
+          {
+            nav.map(([label, href]) => (
+              <a href={href} aria-current={path === href ? 'page' : undefined}>
+                {label}
+              </a>
+            ))
+          }
+          <Btn text="Start a conversation" />
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+      {cta && <Cta />}
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <div class="footer-top">
+          <div>
+            <Brand />
+            <p>
+              Residential &amp; commercial construction.<br />Built around your vision. Grounded
+              in Chicago.
+            </p>
+          </div>
+          <div>
+            <h3>Explore</h3>
+            <a href="/about/">Our company</a>
+            <a href="/projects/">Our work</a>
+            <a href="/residential-construction/">Residential construction</a>
+            <a href="/commercial-construction/">Commercial construction</a>
+            <a href="/blog/">Insights</a>
+          </div>
+          <div>
+            <h3>Let’s talk</h3>
+            <a href={data.site.phoneHref}>{data.site.phone}</a>
+            <a href={`mailto:${data.site.email}`}>{data.site.email}</a>
+            <p>{data.site.street}<br />{data.site.city}, {data.site.region} {data.site.postal}</p>
+            <a href="/contact/">Start your project ↗</a>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Gold Coast Build LLC. All rights reserved.</span>
+          <span>Chicago · North Shore · Western Suburbs</span>
+          <a class="to-top" href="#top" aria-label="Back to top">
+            <span aria-hidden="true">↑</span>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../scripts/app.js"></script>
+  </body>
+</html>

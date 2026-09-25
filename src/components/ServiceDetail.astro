@@ -1,0 +1,45 @@
+---
+import data from '../data/site.json';
+interface Props { commercial: boolean }
+const { commercial } = Astro.props;
+const rows = (commercial ? data.capabilities.commercial : data.capabilities.residential) as
+  [string, string, string][];
+const copy = commercial
+  ? {
+      title: 'Built for the demands<br>of doing business.',
+      intro: 'A commercial project has to balance the impression a space makes with the work it needs to support.',
+      note: 'Start with the operational picture.',
+      detail: 'Share how the property is used today, how that use may change, and any access or scheduling constraints. Those details help frame a more useful conversation about the scope and sequence of work.',
+    }
+  : {
+      title: 'For the home you imagine.<br>And the life you lead.',
+      intro: 'From a new address to a new chapter in a familiar home, the best place to begin is with how you want to live.',
+      note: 'Already have drawings or inspiration?',
+      detail: 'Bring them to the conversation. Existing plans, photographs, and a short list of priorities help us understand your direction and discuss what comes next. You can also contact us while you are still exploring the possibilities.',
+    };
+---
+<section class="section capability-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Explore the possibilities</div>
+        <h2 set:html={copy.title} />
+      </div>
+      <p>{copy.intro}</p>
+    </div>
+    <div class="capability-grid">
+      {rows.map(([heading, body, meta], i) => (
+        <article>
+          <div class="eyebrow">0{i + 1}</div>
+          <h3>{heading}</h3>
+          <p>{body}</p>
+          <small>{meta}</small>
+        </article>
+      ))}
+    </div>
+    <div class="planning-note">
+      <h3>{copy.note}</h3>
+      <p>{copy.detail}</p>
+    </div>
+  </div>
+</section>

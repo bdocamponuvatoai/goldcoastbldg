@@ -1,0 +1,21 @@
+---
+import Btn from './Btn.astro';
+import data from '../data/site.json';
+---
+<section class="cta">
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Your vision deserves a thoughtful builder</div>
+      <h2>Build your next chapter<br />with Gold Coast Build.</h2>
+      <p>
+        You have a vision for what comes next. GCB brings residential and commercial
+        construction experience to the conversation. Tell us what you want to create, and
+        let’s explore the possibilities together.
+      </p>
+    </div>
+    <div class="cta-action">
+      <Btn text="Start your GCB project" />
+      <a href={data.site.phoneHref}>Or call {data.site.phone}</a>
+    </div>
+  </div>
+</section>

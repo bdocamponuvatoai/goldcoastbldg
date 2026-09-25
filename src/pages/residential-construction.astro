@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Photo from '../components/Photo.astro';
+import Btn from '../components/Btn.astro';
+import ServiceDetail from '../components/ServiceDetail.astro';
+import ServicePitch from '../components/ServicePitch.astro';
+import Journey from '../components/Journey.astro';
+import Faq from '../components/Faq.astro';
+import data from '../data/site.json';
+
+const desc = 'Residential construction in Chicago and the suburbs: custom homes, whole-home renovations, condominium remodeling, and kitchen and bathroom updates.';
+const faqSchema = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: (data.faq as [string, string][]).map(([q, a]) => ({
+    '@type': 'Question', name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+const crumbs = {
+  '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: data.site.url + '/' },
+    { '@type': 'ListItem', position: 2, name: 'Residential construction', item: data.site.url + '/residential-construction/' },
+  ],
+};
+---
+<Base title='Residential construction' description={desc} schema={[faqSchema, crumbs]}>
+  <PageHead kicker='Residential construction' title='Your life.<br>Beautifully built.' desc='Custom homes, condominium renovations, and remodeling across Chicago and the surrounding suburbs.' />
+  <section class="section">
+    <div class="wrap split">
+      <Photo src={data.projects[2].images[2]} alt={`Residential construction from Gold Coast Build’s current portfolio`} />
+      <div>
+        <div class="eyebrow">Built around your priorities</div>
+        <h2>Make room for<br />the way you live.</h2>
+        <p>Whether you are starting with an empty lot or reimagining a familiar space, Gold Coast Build brings your ideas into focus with construction tailored to your home.</p>
+        <ul class="list">
+            <li>New custom homes</li>
+            <li>Whole-home renovations</li>
+            <li>Condominium and apartment remodeling</li>
+            <li>Kitchen, bathroom, and interior updates</li>
+        </ul>
+        <Btn text="Discuss your project" />
+      </div>
+    </div>
+  </section>
+  <ServiceDetail commercial={false} />
+  <ServicePitch commercial={false} />
+  <Journey />
+  <Faq />
+</Base>
