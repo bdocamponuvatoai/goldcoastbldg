@@ -1,7 +1,14 @@
 ---
 import Photo from './Photo.astro';
-interface Props { project: any; index: number }
-const { project, index } = Astro.props;
+interface Props {
+  project: any;
+  index: number;
+  /** 3 under a section <h2> (home); 2 on /projects/ where the grid is the
+   *  first content after the page <h1>, so h1 -> h3 would skip a level. */
+  level?: 2 | 3;
+}
+const { project, index, level = 3 } = Astro.props;
+const Heading = `h${level}` as 'h2' | 'h3';
 const cover = project.images[project.selections[0][0]];
 ---
 <a class="project-card" data-category={project.category} href={project.path}>
@@ -12,7 +19,7 @@ const cover = project.images[project.selections[0][0]];
   <div class="meta">
     <div>
       <div class="eyebrow">{project.location}</div>
-      <h3>{project.short}</h3>
+      <Heading>{project.short}</Heading>
     </div>
     <p>{index === 0 ? 'Renovation' : 'Residential'}</p>
   </div>

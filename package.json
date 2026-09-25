@@ -10,8 +10,7 @@
     "dev": "astro dev",
     "build": "astro build && node scripts/prune.mjs",
     "preview": "astro preview",
-    "verify": "node verify.mjs",
-    "check": "astro check"
+    "verify": "node verify.mjs"
   },
   "dependencies": {
     "astro": "^7.3.5",

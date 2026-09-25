@@ -197,7 +197,7 @@ nav .btn{display:flex;margin-top:15px;padding:15px}
 .project-card:hover .view{background:#20282f;color:#fff}
 .project-card .meta{display:flex;flex-direction:row;align-items:flex-start;justify-content:space-between;gap:12px;margin-top:22px}
 .project-card .meta>p{white-space:nowrap}
-.project-card h3{font-size:1.4rem;margin:7px 0}
+.project-card h2,.project-card h3{font-size:1.4rem;margin:7px 0}
 .project-card .eyebrow{font-size:.7rem;margin:0;color:#59635d}
 .project-card p{font-size:.875rem}
 
@@ -321,7 +321,7 @@ nav .btn{display:flex;margin-top:15px;padding:15px}
 .project-opening figure img{width:100%;height:auto;object-fit:contain}
 
 .project-notes{display:grid;grid-template-columns:1fr;gap:32px;margin-bottom:40px;border-top:1px solid var(--line);padding-top:35px}
-.project-notes h3{font-size:1.7rem;line-height:1.2;margin-bottom:20px}
+.project-notes h2{font-size:1.7rem;line-height:1.2;margin-bottom:20px}
 .project-notes p{max-width:570px}
 
 .project-photography{padding:45px 0 65px}
@@ -432,7 +432,7 @@ footer::before{
 .footer-top>div{min-width:0}
 .footer-top>div:first-child{grid-column:1/-1}
 .footer-top p{color:#aeb8b2;font-size:.9rem;margin-top:20px;max-width:300px}
-.footer-top h3{font-family:inherit;font-size:.75rem;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
+.footer-top h2{font-family:inherit;font-size:.75rem;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
 .footer-top a:not(.brand){display:block;margin:8px 0;font-size:.9rem}
 .footer-bottom{
   border-top:1px solid #ffffff16;margin-top:56px;padding-top:24px;
@@ -509,7 +509,7 @@ footer::before{
   .project-grid{grid-template-columns:1fr 1fr;gap:48px 32px}
   .project-grid .project-card:last-child:nth-child(odd){grid-column:1/-1;max-width:760px;width:100%;margin:0 auto}
   .project-card .meta{flex-direction:column}
-  .project-card h3{font-size:1.6rem}
+  .project-card h2,.project-card h3{font-size:1.6rem}
 
   .service-row{grid-template-columns:40px 1fr 1fr 25px;gap:30px}
   .service-row h3{font-size:2rem}

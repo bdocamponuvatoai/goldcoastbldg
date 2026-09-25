@@ -27,7 +27,7 @@ const schema = [{
         <button type="button" data-filter="renovation" aria-pressed="false">Renovations</button>
       </div>
       <div class="project-grid">
-        {data.projects.map((p, i) => <ProjectCard project={p} index={i} />)}
+        {data.projects.map((p, i) => <ProjectCard project={p} index={i} level={2} />)}
       </div>
     </div>
   </section>
