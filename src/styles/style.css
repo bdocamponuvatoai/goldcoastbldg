@@ -436,8 +436,36 @@ footer::before{
 .footer-top a:not(.brand){display:block;margin:8px 0;font-size:.9rem}
 .footer-bottom{
   border-top:1px solid #ffffff16;margin-top:56px;padding-top:24px;
-  font-size:.75rem;color:#aeb8b2;
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#aeb8b2;
   display:flex;flex-direction:column;gap:8px;
+}
+/* Studio credit and parent-company badge: the shared footer details on
+   every Isak Global Ventures brand site. */
+.credit{
+  display:inline-flex;align-items:center;gap:4px;min-height:44px;
+  color:#f7f7f3;transition:opacity .2s;
+}
+.credit>span:first-child{text-decoration:underline;text-underline-offset:4px}
+.credit:hover{opacity:.75}
+.igv-badge{
+  display:flex;justify-content:center;
+  border-top:1px solid #ffffff16;margin-top:24px;padding-top:32px;
+}
+.igv-badge a{
+  display:inline-flex;flex-direction:column;align-items:center;gap:16px;
+  min-height:44px;padding:8px 16px;border-radius:16px;
+  font-size:13px;letter-spacing:.02em;color:#aeb8b2;
+  transition:color .2s;
+}
+.igv-badge a:hover{color:#f7f7f3}
+.igv-badge img{height:32px;width:auto;opacity:.9;transition:opacity .2s}
+.igv-badge a:hover img{opacity:1}
+@media (min-width:640px){
+  .igv-badge a{flex-direction:row;gap:32px}
+}
+.sr-only{
+  position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
 }
 
 /* Back to top. A plain #top anchor rather than a scripted button: browsers
@@ -574,8 +602,13 @@ footer::before{
   footer{padding:72px 0 26px}
   .footer-top{grid-template-columns:1.6fr 1fr 1fr;gap:65px}
   .footer-top>div:first-child{grid-column:auto}
-  .footer-bottom{flex-direction:row;justify-content:space-between;align-items:center;gap:20px}
-  .to-top{align-self:auto;margin-top:0}
+  /* Three tracked uppercase lines don't fit one row until ~1320px, so in
+     between they stack beside the back-to-top button. */
+  .footer-bottom{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px 20px}
+  .to-top{grid-column:2;grid-row:1/span 3;align-self:auto;margin-top:0}
+}
+@media (min-width:1320px){
+  .footer-bottom{display:flex;flex-direction:row;justify-content:space-between}
 }
 
 /* =========================================================== >= 1051px  */
