@@ -10,6 +10,17 @@
     "region": "IL",
     "postal": "60611"
   },
+  "consent": {
+    "heading": "Analytics cookies",
+    "body": "With your permission, we use Google Analytics cookies to understand how visitors use this site, so we can improve it. Nothing is collected unless you accept. You can change your choice at any time under Cookie settings.",
+    "decline": "Decline",
+    "accept": "Accept",
+    "settings": "Cookie settings",
+    "privacyPolicy": {
+      "label": "Privacy Policy",
+      "href": null
+    }
+  },
   "projects": [
     {
       "slug": "modern-urban-living-in-the-heart-of-chicago",

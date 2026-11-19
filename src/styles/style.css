@@ -482,6 +482,67 @@ footer::before{
 }
 .to-top:hover{background:#ffffff14;border-color:#ffffff59;transform:translateY(-2px)}
 
+/* ---------------------------------------------------------- consent card */
+/* Built by public/consent.js once script runs; nothing is rendered server-
+   side. It borrows the lightbox's surface (--dark, square corners) and the
+   site's own .btn.outline buttons, with the white-on-dark hairline the
+   header and service rows use so it still reads over the dark sections.
+   z-index 15: above page content (the hero uses 1 and 2), below the header
+   (20), so the open mobile menu covers the card rather than the reverse.
+   Phones get a full-width sheet; from 640px it is a card on the right whose
+   outer edge sits on the .wrap content edge, in line with the nav. */
+.consent{
+  position:fixed;z-index:15;
+  left:max(12px,env(safe-area-inset-left));
+  right:max(12px,env(safe-area-inset-right));
+  bottom:calc(12px + env(safe-area-inset-bottom));
+  color:#aeb8b2;
+  opacity:0;transform:translateY(16px);
+  transition:opacity .6s ease-out,transform .7s ease-out;
+}
+.consent[data-state="open"]{opacity:1;transform:none}
+/* .32s: keep equal to exitMs in consent.js */
+.consent[data-state="closed"]{pointer-events:none;transition-duration:.32s}
+
+.consent-card{padding:20px;background:var(--dark);border:1px solid #ffffff26}
+.consent-rule{
+  display:block;width:28px;height:1px;background:var(--accent);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .9s ease-out .18s;
+}
+.consent[data-state="open"] .consent-rule{transform:scaleX(1)}
+.consent-title{margin-top:16px;font-size:1.4rem;line-height:1.2;letter-spacing:-.035em;color:#f7f7f3}
+/* a programmatic focus target when reopened from the footer, not a control */
+.consent-title:focus{outline:none}
+.consent-body{margin-top:10px;font-size:.875rem;line-height:1.6;color:#aeb8b2}
+.consent-link{
+  display:inline-block;margin-top:8px;font-size:.875rem;color:#f7f7f3;
+  text-decoration:underline;text-underline-offset:4px;
+}
+.consent-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px;color:#f7f7f3}
+/* .btn spreads its label away from the arrow; these have no arrow, so the
+   label is centred and the side padding trimmed to fit two across at 320px */
+.consent-actions .btn{justify-content:center;gap:0;padding-left:16px;padding-right:16px;white-space:nowrap}
+/* reopened from the footer: the stored choice shows as the filled button */
+.consent-actions .btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--dark)}
+
+/* "Cookie settings" in the footer bar, set like the studio credit */
+.consent-settings{
+  display:inline-flex;align-items:center;align-self:flex-start;min-height:44px;
+  padding:0;border:0;background:none;
+  color:#f7f7f3;font:inherit;letter-spacing:inherit;text-transform:inherit;text-align:left;
+  text-decoration:underline;text-underline-offset:4px;
+  transition:opacity .2s;
+}
+.consent-settings:hover{opacity:.75}
+.consent-settings[hidden]{display:none}
+
+@media (min-width:640px){
+  .consent{width:400px;bottom:calc(24px + env(safe-area-inset-bottom))}
+  .consent[data-side="right"]{left:auto;right:max(5%,calc(50% - 690px),env(safe-area-inset-right))}
+  .consent[data-side="left"]{right:auto;left:max(5%,calc(50% - 690px),env(safe-area-inset-left))}
+}
+
 /* ============================================================ >= 761px  */
 @media (min-width:761px){
   :root{--header:100px}
@@ -602,12 +663,15 @@ footer::before{
   footer{padding:72px 0 26px}
   .footer-top{grid-template-columns:1.6fr 1fr 1fr;gap:65px}
   .footer-top>div:first-child{grid-column:auto}
-  /* Three tracked uppercase lines don't fit one row until ~1320px, so in
-     between they stack beside the back-to-top button. */
+  /* Four tracked uppercase items (with Cookie settings) don't fit one row
+     until ~1475px, so in between they stack beside the back-to-top button. */
   .footer-bottom{display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px 20px}
-  .to-top{grid-column:2;grid-row:1/span 3;align-self:auto;margin-top:0}
+  .to-top{grid-column:2;grid-row:1/span 4;align-self:auto;margin-top:0}
+
+  .consent-card{padding:24px}
+  .consent-title{font-size:1.55rem}
 }
-@media (min-width:1320px){
+@media (min-width:1500px){
   .footer-bottom{display:flex;flex-direction:row;justify-content:space-between}
 }
 
@@ -641,6 +705,9 @@ footer::before{
 
   .cta .wrap{flex-direction:row;justify-content:space-between;align-items:center;gap:50px}
   .cta-action{align-items:stretch}
+
+  .consent{width:420px;bottom:calc(32px + env(safe-area-inset-bottom))}
+  .consent-card{padding:28px}
 }
 
 /* =========================================================== >= 1700px  */

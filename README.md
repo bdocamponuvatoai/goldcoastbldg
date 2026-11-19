@@ -4,8 +4,9 @@ Marketing site for Gold Coast Build, a Chicago residential and commercial
 construction company.
 
 Built with [Astro](https://astro.build). Static output — no server, no
-database, and no JavaScript framework shipped to the browser. The only
-client-side script is 5 KB of progressive enhancement.
+database, and no JavaScript framework shipped to the browser. Client-side
+script is 5 KB of progressive enhancement plus an 11 KB analytics consent
+card that loads Google Tag Manager only after a visitor accepts.
 
 | | |
 |---|---|
@@ -26,6 +27,7 @@ npm run dev          # http://localhost:4321
 npm run build        # astro build + prune unreferenced assets
 npm run verify       # gate: must print "all checks passed"
 npm run preview      # serve the built output
+npm run test:e2e     # browser tests for the consent card (Playwright)
 ```
 
 ## Layout
@@ -33,16 +35,20 @@ npm run preview      # serve the built output
 ```
 astro.config.mjs        site URL, trailing slashes, image defaults
 src/
-  data/site.json        all content: projects, FAQ, journey, capabilities
+  data/site.json        all content: projects, FAQ, journey, capabilities,
+                        consent card copy
   layouts/Base.astro    <head>, schema, header, footer
   components/           one per section of the site
   pages/                one file per route; [slug].astro fans out the projects
   assets/               original photographs — the source of truth
   styles/style.css      mobile-first stylesheet
   scripts/app.js        nav, project filter, gallery lightbox
-public/                 copied verbatim: icons, og image, _headers
+  lib/analytics.ts      GTM container ID, production hosts, consent key
+public/                 copied verbatim: icons, og image, _headers, consent.js
+  consent.js            analytics consent card; loads GTM after Accept
 scripts/prune.mjs       deletes build assets nothing references
 verify.mjs              post-build checks; exits non-zero on failure
+tests/                  Playwright tests for the consent card
 dist/                   generated output; safe to delete at any time
 ```
 
@@ -96,7 +102,37 @@ the end.
 - canonical, Open Graph, Twitter and JSON-LD present and parsing
 - no `target="_blank"` without `rel="noopener"`
 - JSON-LD contains no unescaped `<` that could close its own `<script>`
+- no inline executable `<script>` (the CSP would block it)
+- no page loads Google directly or carries a `<noscript><iframe>`; the GTM
+  container ID appears only in Vercel production builds
 - the sitemap lists only pages that were actually built
+
+## Analytics and consent
+
+Google Analytics 4 runs through Google Tag Manager (`GTM-MMDC2KTN`), behind a
+consent card. Nothing from Google loads until a visitor clicks **Accept**;
+**Decline** loads nothing and deletes any `_ga*` cookies. The choice is kept
+in `localStorage` (`gcb:consent`) for 12 months, and the footer's **Cookie
+settings** button reopens the card.
+
+- `public/consent.js` builds the card and injects GTM. It is served as a file
+  so the CSP keeps `script-src 'self'`. Do not paste Google's snippet into
+  `<head>` or add its `<noscript><iframe>`: both load GTM without consent.
+- GTM loads only on the live site: the container ID is rendered only when
+  `VERCEL_ENV=production` (`src/lib/analytics.ts`), and the script also checks
+  the hostname against `goldcoastbld.com` / `www.goldcoastbld.com`. Previews,
+  CI, local builds and the `*.vercel.app` URL never report to GA4.
+- Copy lives under `consent` in `src/data/site.json`. If what visitors agree
+  to changes, bump `version` in `consent.js` so everyone is asked again.
+- The card's copy covers analytics only. Adding any other tag to the
+  container (Ads, Meta, Hotjar, …) needs its own consent category, copy and
+  CSP origins first.
+
+`npm run test:e2e` builds the site as a production build into `.test-dist/`,
+serves it at the production hostname inside Playwright, and checks the whole
+consent flow, including CSP, focus handling, placement and contrast. It loads
+the real, published container; GA's collect requests are answered locally,
+so test runs never count as visits.
 
 ## Deployment
 
@@ -110,5 +146,6 @@ mirrored in `src/data/site.json`. It drives canonical tags, Open Graph URLs,
 ## Security
 
 See **[SECURITY.md](SECURITY.md)**. The site is static with no forms, no user
-input, no cookies and no server-side code. Security headers ship in
-`vercel.json`, and in `public/_headers` for Netlify or Cloudflare Pages.
+input and no server-side code. The only cookies are Google Analytics', set
+after a visitor accepts. Security headers ship in `vercel.json`, and in
+`public/_headers` for Netlify or Cloudflare Pages.
