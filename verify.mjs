@@ -80,6 +80,12 @@ for (const file of pages) {
     check(a.includes('noopener'), `${rel}: target=_blank without rel=noopener`);
   }
 
+  // the CSP allows script-src 'self' only: an inline script would be blocked
+  for (const m of s.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)) {
+    const executable = !/type="application\/ld\+json"/.test(m[1]);
+    check(!executable || m[2].trim() === '', `${rel}: inline <script> would be blocked by the CSP`);
+  }
+
   for (const tag of REQUIRED_HEAD) check(s.includes(tag), `${rel}: <head> missing ${tag}`);
 
   for (const m of s.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
