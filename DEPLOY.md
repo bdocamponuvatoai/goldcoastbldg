@@ -148,6 +148,12 @@ Walk the preview: all 7 project pages, the gallery lightbox, the mobile
 nav, the contact links. Check the Open Graph card renders
 (`/assets/og-image.jpg`, 1200x630).
 
+The analytics consent card shows on previews so it can be reviewed, but
+Google Tag Manager never loads there: the container ID is only rendered in
+production builds, and even then only `goldcoastbld.com` and
+`www.goldcoastbld.com` load it. Accepting on a preview or on the production
+`*.vercel.app` URL should make no request to `googletagmanager.com`.
+
 ---
 
 ## 8. DNS cutover
@@ -235,6 +241,18 @@ Then by hand:
   Add redirects for anything else that shows up as a 404.
 - Test the gallery on a real iOS device. The lightbox uses `<dialog>`,
   which falls back to opening the photograph directly below Safari 15.4.
+- Check analytics, which only starts on the live domain:
+  1. Tag Manager: the container `GTM-MMDC2KTN` is **published** (Submit →
+     Publish) and fires only the GA4 Google tag (`G-ED6J0K4SPC`) on
+     *Initialization – All Pages*. Anything else needs its own consent
+     category and copy first.
+  2. GA4 → Admin → Data streams → Enhanced measurement: "Page changes based
+     on browser history events" is on.
+  3. On `https://goldcoastbld.com/`, click **Accept** on the card and look
+     for your visit in GA4 → Reports → Realtime.
+  4. In a private window, click **Decline**: DevTools → Network shows no
+     request to `googletagmanager.com` across a few pages.
+  5. Optional: Admin → Data filters → exclude internal traffic.
 - Only once all of the above is clean: cancel Squarespace.
 
 ---

@@ -21,4 +21,14 @@ export default defineConfig({
   },
 
   devToolbar: { enabled: false },
+
+  vite: {
+    build: {
+      // Astro inlines any script under 4 KB into the page, and the CSP
+      // (script-src 'self', no 'unsafe-inline') then blocks it, which left the
+      // nav, project filter and lightbox dead in production. Scripts always
+      // ship as files; everything else keeps the default (undefined).
+      assetsInlineLimit: (file) => (file.endsWith('.js') ? false : undefined),
+    },
+  },
 });

@@ -4,9 +4,11 @@ import data from '../data/site.json';
 import Brand from '../components/Brand.astro';
 import Btn from '../components/Btn.astro';
 import Cta from '../components/Cta.astro';
+import { GTM_ID, PRODUCTION_HOSTS, CONSENT_STORAGE_KEY } from '../lib/analytics';
 import '../styles/style.css';
 
 const SITE = data.site.url;
+const consent = data.consent;
 const SOCIAL = '/assets/og-image.jpg';
 
 interface Props {
@@ -172,6 +174,10 @@ const ld = (obj: unknown) =>
         </div>
         <div class="footer-bottom">
           <span>© 2026 Gold Coast Build LLC. All rights reserved.</span>
+          <!-- Revealed by consent.js; without script there is nothing to consent to. -->
+          <button type="button" class="consent-settings" data-consent-settings hidden>
+            {consent.settings}
+          </button>
           <span>Chicago · North Shore · Western Suburbs</span>
           <span>
             Website design &amp; development by{' '}
@@ -195,5 +201,22 @@ const ld = (obj: unknown) =>
     </footer>
 
     <script src="../scripts/app.js"></script>
+    <!--
+      Analytics consent card + Google Tag Manager. GTM is never in <head> and
+      has no <noscript> fallback: consent.js injects it only after Accept, and
+      only on the live site (see src/lib/analytics.ts).
+    -->
+    <script
+      is:inline
+      src="/consent.js"
+      defer
+      data-gtm-id={GTM_ID}
+      data-production-hosts={PRODUCTION_HOSTS.join(',')}
+      data-privacy-url={consent.privacyPolicy.href ?? ''}
+      data-side="right"
+      data-storage-key={CONSENT_STORAGE_KEY}
+      data-button-class="btn outline consent-btn"
+      data-copy={JSON.stringify(consent)}
+    ></script>
   </body>
 </html>

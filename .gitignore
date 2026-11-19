@@ -25,3 +25,8 @@ desktop.ini
 
 # astro
 .astro/
+
+# playwright (npm run test:e2e)
+.test-dist/
+test-results/
+playwright-report/

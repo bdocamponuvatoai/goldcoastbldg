@@ -10,6 +10,8 @@ import { join, extname, relative } from 'node:path';
 
 const DIST = 'dist';
 const SITE = 'https://goldcoastbld.com';
+// Google Tag Manager is named only in Vercel production builds (src/lib/analytics.ts)
+const PRODUCTION = process.env.VERCEL_ENV === 'production';
 
 const REQUIRED_HEAD = [
   'charset="utf-8"', 'name="viewport"', 'rel="canonical"',
@@ -19,6 +21,7 @@ const REQUIRED_HEAD = [
 const REQUIRED_FILES = [
   'index.html', '404.html', 'robots.txt', 'sitemap.xml', 'favicon.ico',
   'assets/og-image.jpg', 'assets/apple-touch-icon.png', 'assets/logo.png',
+  'consent.js',
 ];
 
 const fails = [];
@@ -79,6 +82,25 @@ for (const file of pages) {
   for (const a of s.match(/<a\b[^>]*target="_blank"[^>]*>/g) || []) {
     check(a.includes('noopener'), `${rel}: target=_blank without rel=noopener`);
   }
+
+  // the CSP allows script-src 'self' only: an inline script would be blocked
+  for (const m of s.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/g)) {
+    const executable = !/type="application\/ld\+json"/.test(m[1]);
+    check(!executable || m[2].trim() === '', `${rel}: inline <script> would be blocked by the CSP`);
+  }
+
+  // analytics consent: Google is loaded only by public/consent.js, after the
+  // visitor accepts, and the container is named only in production builds
+  check(
+    !/googletagmanager\.com|google-analytics\.com/.test(s),
+    `${rel}: references Google Tag Manager/Analytics directly (only consent.js may load it)`,
+  );
+  check(!/<noscript>\s*<iframe/i.test(s), `${rel}: <noscript><iframe> loads GTM without consent`);
+  const consentTag = s.match(/<script\b[^>]*\bsrc="\/consent\.js"[^>]*>/)?.[0];
+  check(consentTag, `${rel}: consent.js is not loaded`);
+  const gtmId = consentTag?.match(/data-gtm-id="([^"]*)"/)?.[1] ?? '';
+  if (PRODUCTION) check(/^GTM-[A-Z0-9]+$/.test(gtmId), `${rel}: production build without a GTM ID`);
+  else check(!s.includes('GTM-'), `${rel}: non-production build names the GTM container`);
 
   for (const tag of REQUIRED_HEAD) check(s.includes(tag), `${rel}: <head> missing ${tag}`);
 
